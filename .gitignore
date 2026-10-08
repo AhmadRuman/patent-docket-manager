@@ -1,0 +1,26 @@
+# .NET
+bin/
+obj/
+*.user
+.vs/
+TestResults/
+*.db
+*.db-shm
+*.db-wal
+
+# Node
+node_modules/
+dist/
+*.tsbuildinfo
+coverage/
+
+# Editors / OS
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.DS_Store
+
+# Local secrets
+.env
+.env.local
+appsettings.*.local.json

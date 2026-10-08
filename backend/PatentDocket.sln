@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{2EA59ABC-83F6-4860-AE29-0471A6143F4C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PatentDocket.Api", "src\PatentDocket.Api\PatentDocket.Api.csproj", "{3EAA877A-D51E-455E-A7A2-3E2795985314}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{1C5EDB17-5AB1-4BCD-A7CE-E337CFB112F7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PatentDocket.Api.Tests", "tests\PatentDocket.Api.Tests\PatentDocket.Api.Tests.csproj", "{607B6BBF-9DF0-4690-9781-C13710F43751}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3EAA877A-D51E-455E-A7A2-3E2795985314}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3EAA877A-D51E-455E-A7A2-3E2795985314}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3EAA877A-D51E-455E-A7A2-3E2795985314}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3EAA877A-D51E-455E-A7A2-3E2795985314}.Release|Any CPU.Build.0 = Release|Any CPU
+		{607B6BBF-9DF0-4690-9781-C13710F43751}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{607B6BBF-9DF0-4690-9781-C13710F43751}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{607B6BBF-9DF0-4690-9781-C13710F43751}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{607B6BBF-9DF0-4690-9781-C13710F43751}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{3EAA877A-D51E-455E-A7A2-3E2795985314} = {2EA59ABC-83F6-4860-AE29-0471A6143F4C}
+		{607B6BBF-9DF0-4690-9781-C13710F43751} = {1C5EDB17-5AB1-4BCD-A7CE-E337CFB112F7}
+	EndGlobalSection
+EndGlobal
