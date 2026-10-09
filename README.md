@@ -1,5 +1,12 @@
 # Patent Docket Manager
 
+[![CI](https://github.com/AhmadRuman/patent-docket-manager/actions/workflows/ci.yml/badge.svg)](https://github.com/AhmadRuman/patent-docket-manager/actions/workflows/ci.yml)
+[![Deploy to Azure](https://github.com/AhmadRuman/patent-docket-manager/actions/workflows/deploy-azure.yml/badge.svg)](https://github.com/AhmadRuman/patent-docket-manager/actions/workflows/deploy-azure.yml)
+
+**Live demo:** [happy-sky-07e88370f.1.azurestaticapps.net](https://happy-sky-07e88370f.1.azurestaticapps.net) · **API docs:** [Swagger UI](https://patentdocket-api-g5avt7x64fwcs.azurewebsites.net/swagger)
+
+> Hosted on Azure free tiers: the first request after a quiet period can take 30–60 seconds while the API and database wake up.
+
 An internal docketing tool for a patent practice. Staff log matters, docket response deadlines (with due dates calculated from the triggering office communication) and see at a glance what is overdue, what is due this week and what is coming up.
 
 **Stack:** C# / ASP.NET Core 8 Web API · Entity Framework Core · SQL Server / Azure SQL · React 19 + TypeScript (Vite) · Azure App Service + Static Web Apps · GitHub Actions
@@ -111,6 +118,8 @@ CI also starts a real SQL Server 2022 container. It checks that the migrations m
    ```
    This deploys `infra/main.bicep` and prints the API and web URLs, the App Service name and the Static Web Apps deployment token.
 
+   If it fails with `SubscriptionIsOverQuotaForSku` (F1 VMs limit 0), your subscription has no free App Service quota in that region. Delete the empty resource group and retry with a new group name in another region, e.g. `centralus`. This demo is deployed in Central US.
+
 2. **Let GitHub Actions deploy with OIDC** (no stored Azure passwords):
    ```bash
    az ad app create --display-name patent-docket-deploy        # note the appId
@@ -118,9 +127,15 @@ CI also starts a real SQL Server 2022 container. It checks that the migrations m
    az role assignment create --assignee <appId> --role Contributor \
      --scope /subscriptions/<subId>/resourceGroups/rg-patent-docket-demo
    az ad app federated-credential create --id <appId> --parameters '{
-     "name": "github-main", "issuer": "https://token.actions.githubusercontent.com",
-     "subject": "repo:<owner>/<repo>:environment:production", "audiences": ["api://AzureADTokenExchange"] }'
+     "name": "github-production", "issuer": "https://token.actions.githubusercontent.com",
+     "subject": "repo:<owner>@<ownerId>/<repo>@<repoId>:environment:production",
+     "audiences": ["api://AzureADTokenExchange"] }'
    ```
+   GitHub's OIDC subject includes the numeric owner and repository IDs, e.g.
+   `repo:AhmadRuman@153532748/patent-docket-manager@1410578108:environment:production` for this repo.
+   Look yours up with `curl -s https://api.github.com/repos/<owner>/<repo> | jq '.owner.id, .id'`.
+   If the login step fails with `AADSTS700213: No matching federated identity record`, the log prints
+   the exact subject GitHub sent; create a federated credential with that value.
    In the GitHub repo, create an environment named `production`, then add:
    - secrets `AZURE_CLIENT_ID` (appId), `AZURE_TENANT_ID`, `AZURE_SUBSCRIPTION_ID`, `AZURE_STATIC_WEB_APPS_API_TOKEN`
    - variable `AZURE_WEBAPP_NAME` (printed by the provisioning script)
